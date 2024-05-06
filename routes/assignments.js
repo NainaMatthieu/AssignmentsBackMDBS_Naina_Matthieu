@@ -37,15 +37,15 @@ function getAssignment(req, res){
     let assignmentId = req.params.id;
     console.log("--------------------")
     console.log(assignmentId);
-    // Assignment.findById(assignmentId, (err, assignment) =>{
-    //     if(err){res.send(err)}
-    //     else res.json(assignment);
-    // })
-
-    Assignment.findOne({id: assignmentId}, (err, assignment) =>{
+    Assignment.findById(assignmentId, (err, assignment) =>{
         if(err){res.send(err)}
-        res.json(assignment);
+        else res.json(assignment);
     })
+
+    // Assignment.findOne({id: assignmentId}, (err, assignment) =>{
+    //     if(err){res.send(err)}
+    //     res.json(assignment);
+    // })
 }
 // Ajout d'un assignment (POST)
 function postAssignment(req, res){

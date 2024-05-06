@@ -10,7 +10,7 @@ mongoose.Promise = global.Promise;
 let user ="assignmentuser"
 let password = "toto"
 // remplacer toute cette chaine par l'URI de connexion à votre propre base dans le cloud s
-const uri = util.format('mongodb+srv://%s:%s@cluster0.2ntwxyq.mongodb.net/Assignments_bd?retryWrites=true&w=majority&appName=Cluster0',user,password);
+const uri = util.format('mongodb+srv://%s:%s@cluster0.2ntwxyq.mongodb.net/assignment_db?retryWrites=true&w=majority&appName=Cluster0',user,password);
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
