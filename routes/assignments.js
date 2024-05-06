@@ -35,19 +35,18 @@ function getAssignments(req, res){
 // Récupérer un assignment par son id (GET)
 function getAssignment(req, res){
     let assignmentId = req.params.id;
-    Assignment.findById(assignmentId, (err, assignment) =>{
-        if(err){res.send(err)}
-        res.json(assignment);
-    })
+    console.log("--------------------")
+    console.log(assignmentId);
+    // Assignment.findById(assignmentId, (err, assignment) =>{
+    //     if(err){res.send(err)}
+    //     else res.json(assignment);
+    // })
 
-    /*
     Assignment.findOne({id: assignmentId}, (err, assignment) =>{
         if(err){res.send(err)}
         res.json(assignment);
     })
-    */
 }
-
 // Ajout d'un assignment (POST)
 function postAssignment(req, res){
     let assignment = new Assignment();

@@ -2,13 +2,15 @@ let express = require('express');
 let app = express();
 let bodyParser = require('body-parser');
 let assignment = require('./routes/assignments');
+const util = require('util');
 
 let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 // mongoose.set('debug', true);
-
+let user ="assignmentuser"
+let password = "toto"
 // remplacer toute cette chaine par l'URI de connexion à votre propre base dans le cloud s
-const uri = 'mongodb+srv://mb1:toto@cluster0.lxvcyxy.mongodb.net/assignments?retryWrites=true&w=majority&appName=Cluster0';
+const uri = util.format('mongodb+srv://%s:%s@cluster0.2ntwxyq.mongodb.net/Assignments_bd?retryWrites=true&w=majority&appName=Cluster0',user,password);
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -17,7 +19,7 @@ const options = {
 
 mongoose.connect(uri, options)
   .then(() => {
-    console.log("Connecté à la base MongoDB assignments dans le cloud !");
+    console.log("Connecté à la base MongoDB Assignments_bd dans le cloud !");
     console.log("at URI = " + uri);
     console.log("vérifiez with http://localhost:" + port + "/api/assignments que cela fonctionne")
   },
