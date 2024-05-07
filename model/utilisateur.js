@@ -6,6 +6,8 @@ const Matiere = require('./Matiere');
 let UtilisateurSchema = Schema({
     id: Number,
     nom: String,
+    email: String,
+    password: String,
     role: String,//élève ou professeur
     matieres :[Matiere]
 });
