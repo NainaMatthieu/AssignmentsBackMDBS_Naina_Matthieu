@@ -63,6 +63,8 @@ app.route(prefix + '/users')
 app.route(prefix + '/users/:id')
 .get(utilisateur.getUtilisateur)
 
+app.route(prefix + '/users/login')
+.post(utilisateur.loginUser)
 
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
