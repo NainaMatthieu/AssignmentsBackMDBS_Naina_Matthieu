@@ -1,0 +1,56 @@
+{
+  "_id": { "$oid": "663a52b9946fa30b7711db7d" },
+  "id": { "$numberInt": "1" },
+  "nom": "Jean Dupont",
+  "role": "eleve",
+  "matieres": [
+    {
+      "id": { "$numberInt": "1" },
+      "Matiere": "Algorithmique",
+      "image": "algorithmique.png",
+      "professeur_id": "prof123",
+      "assignments": [
+        {
+          "id": { "$numberInt": "1" },
+          "dateDeRendu": "2024-05-10",
+          "nom": "Analyse de complexité",
+          "rendu": false,
+          "note": { "$numberInt": "0" },
+          "remarques": ""
+        }
+      ]
+    },
+    {
+      "id": { "$numberInt": "2" },
+      "Matiere": "Développement Web",
+      "image": "developpement_web.png",
+      "professeur_id": "prof456",
+      "assignments": [
+        {
+          "id": { "$numberInt": "2" },
+          "dateDeRendu": "2024-05-15",
+          "nom": "Projet de site web dynamique",
+          "rendu": false,
+          "note": { "$numberInt": "0" },
+          "remarques": ""
+        }
+      ]
+    },
+    {
+      "id": { "$numberInt": "3" },
+      "Matiere": "Design UX/UI",
+      "image": "design_ux_ui.png",
+      "professeur_id": "prof789",
+      "assignments": [
+        {
+          "id": { "$numberInt": "3" },
+          "dateDeRendu": "2024-05-20",
+          "nom": "Prototypage d'interface utilisateur",
+          "rendu": false,
+          "note": { "$numberInt": "0" },
+          "remarques": ""
+        }
+      ]
+    }
+  ]
+}
