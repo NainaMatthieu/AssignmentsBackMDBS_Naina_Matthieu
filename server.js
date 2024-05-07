@@ -2,6 +2,7 @@ let express = require('express');
 let app = express();
 let bodyParser = require('body-parser');
 let assignment = require('./routes/assignments');
+let utilisateur = require('./routes/utilisateurs');
 const util = require('util');
 
 let mongoose = require('mongoose');
@@ -21,7 +22,7 @@ mongoose.connect(uri, options)
   .then(() => {
     console.log("Connecté à la base MongoDB Assignments_bd dans le cloud !");
     console.log("at URI = " + uri);
-    console.log("vérifiez with http://localhost:" + port + "/api/assignments que cela fonctionne")
+    console.log("vérifiez with http://localhost:" + port + "/api/users que cela fonctionne")
   },
     err => {
       console.log('Erreur de connexion: ', err);
@@ -44,7 +45,7 @@ let port = process.env.PORT || 8010;
 
 // les routes
 const prefix = '/api';
-
+/*
 // http://serveur..../assignments
 app.route(prefix + '/assignments')
   .post(assignment.postAssignment)
@@ -53,7 +54,14 @@ app.route(prefix + '/assignments')
 
 app.route(prefix + '/assignments/:id')
   .get(assignment.getAssignment)
-  .delete(assignment.deleteAssignment);
+  .delete(assignment.deleteAssignment);*/
+
+  // http://serveur..../user
+app.route(prefix + '/users')
+.get(utilisateur.getUtilisateurs);
+
+app.route(prefix + '/users/:id')
+.get(utilisateur.getUtilisateur)
 
 
 // On démarre le serveur
