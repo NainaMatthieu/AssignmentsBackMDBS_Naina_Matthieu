@@ -6,6 +6,7 @@ let Assignment= Schema({
     id: Number,
     dateDeRendu: Date,
     nom: String,
+    instruction : String,
     rendu: Boolean,
     note: {
         type: Number,
