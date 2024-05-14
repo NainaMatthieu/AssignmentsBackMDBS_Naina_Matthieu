@@ -63,6 +63,9 @@ app.route(prefix + '/users')
 app.route(prefix + '/users/:id')
 .get(utilisateur.getUtilisateur)
 
+app.route(prefix + '/users/matiere/:id')
+.get(utilisateur.getMatiereEtudiant)
+
 app.route(prefix + '/users/login')
 .post(utilisateur.loginUser)
 
