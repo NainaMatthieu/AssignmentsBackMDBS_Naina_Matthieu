@@ -2,8 +2,10 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 const mongoosePaginate = require('mongoose-aggregate-paginate-v2');
 
-let Assignment= Schema({
+let AssignmentSchema= Schema({
     id: Number,
+    idMatiere : String,
+    idEtudiant : String,
     dateDeRendu: Date,
     nom: String,
     instruction : String,
@@ -17,10 +19,6 @@ let Assignment= Schema({
     remarques : String
 });
 
-// AssignmentSchema.plugin(mongoosePaginate);
+AssignmentSchema.plugin(mongoosePaginate);
 
-// // C'est à travers ce modèle Mongoose qu'on pourra faire le CRUD
-// // assignment est le nom de la collection dans la base de données
-// // Mongoose tolère certaines erreurs dans le nom (ex: Assignent au lieu de assignments)
-// module.exports = mongoose.model('assignments', AssignmentSchema);
-module.exports= Assignment
+module.exports = mongoose.model('assignments', AssignmentSchema);

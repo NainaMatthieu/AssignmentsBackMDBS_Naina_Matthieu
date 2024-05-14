@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-const Assignment = require('./assignment');
 
-let Matiere = mongoose.Schema({
+let MatiereSchema = mongoose.Schema({
     id: Number,
     Matiere: String,
     image :String,
     professeur_id : String,
-    assignments : [Assignment]
+    prof_img :String
 });
 
-module.exports= Matiere
+module.exports = mongoose.model('matieres', MatiereSchema);
