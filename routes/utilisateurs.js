@@ -2,6 +2,7 @@ require('dotenv').config();
 let Utilisateur = require('../model/utilisateur');
 let EtudiantMatiere = require('../model/etudiant_matiere');
 let Matiere = require('../model/Matiere');
+let Assignment = require('../model/assignment');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 
@@ -49,13 +50,13 @@ function loginUser(req, res) {
 }
 async function getMatiereEtudiant(req, res) {
     try {
-        
+
         let idEtudiant = req.params.id;
         // console.log(idEtudiant);
-        etudiant_matiere = await EtudiantMatiere.find({idEtudiant})
-        // console.log(etudiant_matiere)
+        etudiant_matiere = await EtudiantMatiere.find({ idEtudiant })
+        console.log(etudiant_matiere)
         const idMatieres = etudiant_matiere.map(relation => relation.idMatiere);
-        console.log(idMatieres);
+        // console.log(idMatieres);
         Matiere.find({ _id: { $in: idMatieres } }, (err, resultats) => {
             if (err) {
                 res.send(err)
@@ -63,9 +64,40 @@ async function getMatiereEtudiant(req, res) {
                 res.send(resultats);
             }
         });
-    }catch(err){
+    } catch (err) {
         res.send(err)
     }
-   
 }
-module.exports = { getUtilisateurs, getUtilisateur, loginUser,getMatiereEtudiant };
+function getAssignmentByIdEtudiant_IdMatiere(req, res) {
+    let idEtudiant = req.params.idEtudiant;
+    let idMatiere = req.params.idMatiere;
+
+    const aggregatePipeline = [
+        {
+            $match: {
+                idEtudiant: idEtudiant,
+                idMatiere: idMatiere
+            }
+        }
+    ];
+
+    let aggregateQuery = Assignment.aggregate(aggregatePipeline);
+
+    Assignment.aggregatePaginate(
+        aggregateQuery,
+        {
+            page: parseInt(req.query.page) || 1,
+            limit: parseInt(req.query.limit) || 10
+        },
+        (err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        }
+    );
+}
+
+
+module.exports = { getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant,getAssignmentByIdEtudiant_IdMatiere };
