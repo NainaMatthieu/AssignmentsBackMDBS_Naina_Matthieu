@@ -99,5 +99,29 @@ function getAssignmentByIdEtudiant_IdMatiere(req, res) {
     );
 }
 
-
-module.exports = { getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant,getAssignmentByIdEtudiant_IdMatiere };
+function getAssignmentByIdEtudiant(req, res) {
+    let idEtudiant = req.params.idEtudiant;
+    const aggregatePipeline = [
+        {
+            $match: {
+                idEtudiant: idEtudiant
+            }
+        }
+    ];
+    let aggregateQuery = Assignment.aggregate(aggregatePipeline);
+    Assignment.aggregatePaginate(
+        aggregateQuery,
+        {
+            page: parseInt(req.query.page) || 1,
+            limit: parseInt(req.query.limit) || 10
+        },
+        (err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        }
+    );
+}
+module.exports = { getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant,getAssignmentByIdEtudiant_IdMatiere,getAssignmentByIdEtudiant };
