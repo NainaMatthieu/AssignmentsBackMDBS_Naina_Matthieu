@@ -73,6 +73,9 @@ app.route(prefix + '/users/assignments/:idEtudiant')
 app.route(prefix + '/users/login')
 .post(utilisateur.loginUser)
 
+app.route(prefix + '/users/register')
+.post(utilisateur.registerUser)
+
 
 app.route(prefix + '/matiere/:id')
 .get(matiere.getMatiereById)

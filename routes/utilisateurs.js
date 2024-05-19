@@ -125,4 +125,24 @@ function getAssignmentByIdEtudiant(req, res) {
         }
     );
 }
-module.exports = { getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant,getAssignmentByIdEtudiant_IdMatiere,getAssignmentByIdEtudiant };
+
+function registerUser(req, res) {
+    var hashedPassword = bcrypt.hashSync(req.body.password, 8);
+  
+    Utilisateur.create({
+      nom: req.body.name,
+      email: req.body.email,
+      password: hashedPassword,
+      role: req.body.role
+    },
+    function (err, user) {
+      if (err) return res.status(500).send("Un problème a été rencontré lors de la création de l'utilisateur");
+      // Création du token
+      var token = jwt.sign({ id: user._id }, process.env._SECRET_KEY, {
+        expiresIn: 86400 // Expiration
+      });
+      res.status(200).send({ auth: true, token: token, user:user });
+    }); 
+  }
+
+module.exports = { getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant,getAssignmentByIdEtudiant_IdMatiere,getAssignmentByIdEtudiant,registerUser };
