@@ -5,6 +5,7 @@ let Matiere = require('../model/Matiere');
 let Assignment = require('../model/assignment');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
 
 
 function getUtilisateurs(req, res) {
@@ -126,23 +127,53 @@ function getAssignmentByIdEtudiant(req, res) {
     );
 }
 
-function registerUser(req, res) {
-    var hashedPassword = bcrypt.hashSync(req.body.password, 8);
-  
-    Utilisateur.create({
-      nom: req.body.name,
-      email: req.body.email,
-      password: hashedPassword,
-      role: req.body.role
-    },
-    function (err, user) {
-      if (err) return res.status(500).send("Un problème a été rencontré lors de la création de l'utilisateur");
-      // Création du token
-      var token = jwt.sign({ id: user._id }, process.env._SECRET_KEY, {
-        expiresIn: 86400 // Expiration
-      });
-      res.status(200).send({ auth: true, token: token, user:user });
-    }); 
-  }
+async function registerUser(req, res) {
 
-module.exports = { getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant,getAssignmentByIdEtudiant_IdMatiere,getAssignmentByIdEtudiant,registerUser };
+    var hashedPassword = bcrypt.hashSync(req.body.password, 8);
+    Utilisateur.create({
+        nom: req.body.name,
+        email: req.body.email,
+        password: hashedPassword,
+        role: req.body.role
+    },
+        function (err, user) {
+            if (err) return res.status(500).send("Un problème a été rencontré lors de la création de l'utilisateur");
+            let transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'aroniainasaotra@gmail.com',
+                    pass: 'japmuujuepqwqijk'
+                },
+                tls: {
+                    rejectUnauthorized: false
+                }
+            });
+            const body = `
+                        <div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
+                            <div style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                                <h3 style="color: #333;">Bonjour,</h3>
+                                <p style="color: #555;">Félicitations ! Vous venez de créer un compte sur notre site. Nous sommes ravis de vous accueillir sur notre plateforme.</p>
+                                <p style="color: #555;">Nous vous souhaitons une excellente journée !</p>
+                                <p style="color: #555;">Cordialement,</p>
+                                <p style="color: #555;">L'équipe de MyAssignments</p>
+                            </div>
+                        </div>
+                        `;
+                        
+            const mailOptions = {
+                to: req.body.email,
+                subject: 'Email de confirmation de confirmation de compte',
+                html: body,
+            };
+
+            const info = transporter.sendMail(mailOptions);
+
+            // Création du token
+            var token = jwt.sign({ id: user._id }, process.env._SECRET_KEY, {
+                expiresIn: 86400 // Expiration
+            });
+            res.status(200).send({ auth: true, token: token, user: user });
+        });
+}
+
+module.exports = { getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant, getAssignmentByIdEtudiant_IdMatiere, getAssignmentByIdEtudiant, registerUser };
