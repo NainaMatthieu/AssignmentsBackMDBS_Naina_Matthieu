@@ -131,7 +131,7 @@ async function registerUser(req, res) {
 
     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
     Utilisateur.create({
-        nom: req.body.name,
+        nom: req.body.nom,
         email: req.body.email,
         password: hashedPassword,
         role: req.body.role
@@ -159,10 +159,10 @@ async function registerUser(req, res) {
                             </div>
                         </div>
                         `;
-                        
+
             const mailOptions = {
                 to: req.body.email,
-                subject: 'Email de confirmation de confirmation de compte',
+                subject: 'Email de bienvenue',
                 html: body,
             };
 
