@@ -43,9 +43,10 @@ function loginUser(req, res) {
         if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
 
         var token = jwt.sign({ id: user._id }, process.env._SECRET_KEY, {
-            expiresIn: 86400 // expires in 24 hours
+            expiresIn: 14400 // expire dans 4h
         });
-        res.status(200).send({ auth: true, token: token });
+        // Retourner l'utilisateur avec le token
+        res.status(200).send({ auth: true, token: token, user: user });
     });
 }
 async function getMatiereEtudiant(req, res) {
