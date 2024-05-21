@@ -79,6 +79,12 @@ app.route(prefix + '/users/register')
 
 app.route(prefix + '/matiere/:id')
 .get(matiere.getMatiereById)
+
+app.route(prefix + '/assignments')
+  .post(assignment.postAssignment)
+  //.put(assignment.updateAssignment)
+  //.get(assignment.getAssignments);
+
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
 console.log('Serveur démarré sur http://localhost:' + port);

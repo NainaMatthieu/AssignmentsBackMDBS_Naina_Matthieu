@@ -50,19 +50,20 @@ function getAssignment(req, res){
 // Ajout d'un assignment (POST)
 function postAssignment(req, res){
     let assignment = new Assignment();
-    assignment.id = req.body.id;
+    assignment.idMatiere = req.body.idMatiere;
+    assignment.idEtudiant = req.body.idEtudiant;
     assignment.nom = req.body.nom;
+    assignment.instruction = req.body.instruction;
     assignment.dateDeRendu = req.body.dateDeRendu;
-    assignment.rendu = req.body.rendu;
-
-    console.log("POST assignment reçu :");
-    console.log(assignment)
+    assignment.rendu = false; //par défaut
+    assignment.note = 0; //par défaut
+    assignment.remarques = "";
 
     assignment.save( (err) => {
         if(err){
-            res.send('cant post assignment ', err);
+            res.send('Erreur : ', err);
         }
-        res.json({ message: `${assignment.nom} saved!`})
+        res.json({ message: `${assignment.nom} enregistré !`})
     })
 }
 
