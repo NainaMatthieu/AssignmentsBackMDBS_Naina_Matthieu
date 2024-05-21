@@ -80,6 +80,9 @@ app.route(prefix + '/users/register')
 app.route(prefix + '/matiere/:id')
 .get(matiere.getMatiereById)
 
+app.route(prefix+'/matiere')
+.post(matiere.createMatiere);
+
 app.route(prefix + '/assignments')
   .post(assignment.postAssignment)
   //.put(assignment.updateAssignment)

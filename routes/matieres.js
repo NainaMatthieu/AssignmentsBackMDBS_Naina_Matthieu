@@ -10,4 +10,20 @@ function getMatiereById(req, res) {
     })
 }
 
-module.exports = {getMatiereById};
+// Ajout d'une matière (POST)
+function createMatiere(req, res){
+    let matiere = new Matiere();
+    matiere.Matiere = req.body.Matiere;
+    matiere.image = req.body.image;
+    matiere.professeur_id = req.body.professeur_id;
+    matiere.prof_img = req.body.prof_img;
+
+    matiere.save( (err) => {
+        if(err){
+            res.send('Erreur : ', err);
+        }
+        res.json({ message: `${matiere.Matiere} enregistré !`})
+    })
+}
+
+module.exports = {getMatiereById, createMatiere};
