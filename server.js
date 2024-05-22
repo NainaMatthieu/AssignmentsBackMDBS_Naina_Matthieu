@@ -10,10 +10,10 @@ const cors = require('cors')
 let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 // mongoose.set('debug', true);
-let user ="assignmentuser"
+let user = "assignmentuser"
 let password = "toto"
 // remplacer toute cette chaine par l'URI de connexion à votre propre base dans le cloud s
-const uri = util.format('mongodb+srv://%s:%s@cluster0.2ntwxyq.mongodb.net/assignment_db?retryWrites=true&w=majority&appName=Cluster0',user,password);
+const uri = util.format('mongodb+srv://%s:%s@cluster0.2ntwxyq.mongodb.net/assignment_db?retryWrites=true&w=majority&appName=Cluster0', user, password);
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -53,40 +53,43 @@ app.route(prefix + '/assignments/:id')
   .get(assignment.getAssignment)
   .delete(assignment.deleteAssignment);*/
 
-  // http://serveur..../user
+// http://serveur..../user
 app.route(prefix + '/users')
-.get(utilisateur.getUtilisateurs);
+  .get(utilisateur.getUtilisateurs);
 
 app.route(prefix + '/users/:id')
-.get(utilisateur.getUtilisateur)
+  .get(utilisateur.getUtilisateur)
 
 app.route(prefix + '/users/matiere/:id')
-.get(utilisateur.getMatiereEtudiant)
+  .get(utilisateur.getMatiereEtudiant)
 
 app.route(prefix + '/users/assignments/:idEtudiant/:idMatiere')
-.get(utilisateur.getAssignmentByIdEtudiant_IdMatiere)
+  .get(utilisateur.getAssignmentByIdEtudiant_IdMatiere)
 
 app.route(prefix + '/users/assignments/:idEtudiant')
-.get(utilisateur.getAssignmentByIdEtudiant)
+  .get(utilisateur.getAssignmentByIdEtudiant)
 
 
 app.route(prefix + '/users/login')
-.post(utilisateur.loginUser)
+  .post(utilisateur.loginUser)
 
 app.route(prefix + '/users/register')
-.post(utilisateur.registerUser)
+  .post(utilisateur.registerUser)
 
 
 app.route(prefix + '/matiere/:id')
-.get(matiere.getMatiereById)
+  .get(matiere.getMatiereById)
 
-app.route(prefix+'/matiere')
-.post(matiere.createMatiere);
+app.route(prefix + '/matiere')
+  .post(matiere.createMatiere);
 
 app.route(prefix + '/assignments')
   .post(assignment.postAssignment)
-  //.put(assignment.updateAssignment)
-  //.get(assignment.getAssignments);
+//.put(assignment.updateAssignment)
+//.get(assignment.getAssignments);
+
+app.route(prefix + '/user/rendre')
+  .post(utilisateur.rendreAssignmentByEtudiant)
 
 // On démarre le serveur
 app.listen(port, "0.0.0.0");

@@ -6,7 +6,7 @@ let Assignment = require('../model/assignment');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
-
+const mongoose = require('mongoose');
 
 function getUtilisateurs(req, res) {
     let aggregateQuery = Utilisateur.aggregate();
@@ -175,5 +175,21 @@ async function registerUser(req, res) {
             res.status(200).send({ auth: true, token: token, user: user });
         });
 }
+//rendre le(s) devoir(s) d'un étudiant à un prof
+async function rendreAssignmentByEtudiant(req, res) {
+   const listIdAssignment = req.body.listAssignment
+   try {
+    const result = await Assignment.updateMany(
+      { _id: { $in: listIdAssignment.map(id => mongoose.Types.ObjectId(id))} },
+      { $set: { rendu: false } }
+    );
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  } 
+}
+/*function getAssignmentRenduNonNote(req,res){
 
-module.exports = { getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant, getAssignmentByIdEtudiant_IdMatiere, getAssignmentByIdEtudiant, registerUser };
+}*/
+
+module.exports = { getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant, getAssignmentByIdEtudiant_IdMatiere, getAssignmentByIdEtudiant, registerUser,rendreAssignmentByEtudiant };
