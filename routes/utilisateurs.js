@@ -30,7 +30,7 @@ function getUtilisateurs(req, res) {
 // Récupérer un utilisateur par son id (GET)
 function getUtilisateur(req, res) {
     let userId = req.params.id;
-    Utilisateur.findById(userId, (err, user) => {
+    Utilisateur.findById(userId).select('-password').exec((err, user) => {
         if (err) { res.send(err) }
         else res.json(user);
     })
