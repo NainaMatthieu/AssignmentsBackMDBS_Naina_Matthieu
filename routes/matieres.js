@@ -26,4 +26,12 @@ function createMatiere(req, res){
     })
 }
 
-module.exports = {getMatiereById, createMatiere};
+// Récupérer toutes les matières
+function getMatieres(req, res) {
+    Matiere.find( (err, matiere) => {
+        if (err) { res.send(err) }
+        else res.json(matiere);
+    })
+}
+
+module.exports = {getMatiereById, createMatiere, getMatieres};

@@ -95,6 +95,9 @@ app.route(prefix + '/user/rendre')
 app.route(prefix + '/assignments/tonote')
   .get(utilisateur.getAssignmentRenduNonNote)
 
+app.route(prefix + '/matieres')
+  .get(matiere.getMatieres);
+
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
 console.log('Serveur démarré sur http://localhost:' + port);
