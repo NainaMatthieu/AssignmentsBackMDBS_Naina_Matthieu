@@ -91,6 +91,10 @@ app.route(prefix + '/assignments')
 app.route(prefix + '/user/rendre')
   .post(utilisateur.rendreAssignmentByEtudiant)
 
+
+app.route(prefix + '/assignments/tonote')
+  .get(utilisateur.getAssignmentRenduNonNote)
+
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
 console.log('Serveur démarré sur http://localhost:' + port);

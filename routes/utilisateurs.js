@@ -188,8 +188,35 @@ async function rendreAssignmentByEtudiant(req, res) {
     res.status(500).send(error);
   } 
 }
-/*function getAssignmentRenduNonNote(req,res){
 
-}*/
+function getAssignmentRenduNonNote(req,res){
+    console.log("ta")
+    const aggregatePipeline = [
+        {
+            $match: {
+                rendu :true,
+                note: 0,
+                remarques: null
+            }
+        }
+    ];
+    console.log(aggregatePipeline)
+    let aggregateQuery = Assignment.aggregate(aggregatePipeline);
 
-module.exports = { getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant, getAssignmentByIdEtudiant_IdMatiere, getAssignmentByIdEtudiant, registerUser,rendreAssignmentByEtudiant };
+    Assignment.aggregatePaginate(
+        aggregateQuery,
+        {
+            page: parseInt(req.query.page) || 1,
+            limit: parseInt(req.query.limit) || 10
+        },
+        (err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        }
+    );
+}
+
+module.exports = { getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant, getAssignmentByIdEtudiant_IdMatiere, getAssignmentByIdEtudiant, registerUser,rendreAssignmentByEtudiant,getAssignmentRenduNonNote };
