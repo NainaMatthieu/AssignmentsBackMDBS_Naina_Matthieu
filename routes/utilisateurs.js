@@ -70,6 +70,27 @@ async function getMatiereEtudiant(req, res) {
         res.send(err)
     }
 }
+
+async function getMatiereEtudiant(req, res) {
+    try {
+
+        let idMatiere = req.params.id;
+        // console.log(idEtudiant);
+        matiere_etudiants = await EtudiantMatiere.find({ idMatiere })
+        console.log(matiere_etudiants)
+        const idEtudiants = matiere_etudiants.map(relation => relation.idEtudiant);
+        Utilisateur.find({ _id: { $in: idEtudiants } }, (err, resultats) => {
+            if (err) {
+                res.send(err)
+            } else {
+                res.send(resultats);
+            }
+        })
+    } catch (err) {
+        res.send(err)
+    }
+}
+
 function getAssignmentByIdEtudiant_IdMatiere(req, res) {
     let idEtudiant = req.params.idEtudiant;
     let idMatiere = req.params.idMatiere;
@@ -228,5 +249,5 @@ function getListEtudiant(req, res) {
 module.exports = {  getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant,
                     getAssignmentByIdEtudiant_IdMatiere, getAssignmentByIdEtudiant, 
                     registerUser,rendreAssignmentByEtudiant,getAssignmentRenduNonNote,
-                    getListEtudiant,
+                    getListEtudiant,getMatiereEtudiant
                 };

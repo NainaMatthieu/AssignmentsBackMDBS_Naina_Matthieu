@@ -98,6 +98,9 @@ app.route(prefix + '/assignments/tonote')
 app.route(prefix + '/matieres')
   .get(matiere.getMatieres);
 
+app.route(prefix + '/matieres/:id/etudiants')
+  .get(utilisateur.getMatiereEtudiant)
+
 app.route(prefix + '/eleves')
   .get(utilisateur.getListEtudiant);
 
