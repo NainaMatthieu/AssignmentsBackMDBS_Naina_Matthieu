@@ -218,5 +218,15 @@ function getAssignmentRenduNonNote(req,res){
         }
     );
 }
-
-module.exports = { getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant, getAssignmentByIdEtudiant_IdMatiere, getAssignmentByIdEtudiant, registerUser,rendreAssignmentByEtudiant,getAssignmentRenduNonNote };
+function getListEtudiant(req, res) {
+    console.log('etudiant')
+    Utilisateur.find({role : "eleve"}).select('-password').exec((err, user) => {
+        if (err) { res.send(err) }
+        else res.json(user);
+    })
+}
+module.exports = {  getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant,
+                    getAssignmentByIdEtudiant_IdMatiere, getAssignmentByIdEtudiant, 
+                    registerUser,rendreAssignmentByEtudiant,getAssignmentRenduNonNote,
+                    getListEtudiant,
+                };

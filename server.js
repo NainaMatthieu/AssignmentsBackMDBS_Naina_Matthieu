@@ -98,6 +98,9 @@ app.route(prefix + '/assignments/tonote')
 app.route(prefix + '/matieres')
   .get(matiere.getMatieres);
 
+app.route(prefix + '/eleves')
+  .get(utilisateur.getListEtudiant);
+
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
 console.log('Serveur démarré sur http://localhost:' + port);
