@@ -48,8 +48,8 @@ function getAssignment(req, res){
     // })
 }
 // Ajout d'un assignment (POST)
-function postAssignment(req, res){
-    let assignment = new Assignment();
+async function postAssignment(req, res){
+    /*let assignment = new Assignment();
     assignment.idMatiere = req.body.idMatiere;
     assignment.idEtudiant = req.body.idEtudiant;
     assignment.nom = req.body.nom;
@@ -64,7 +64,32 @@ function postAssignment(req, res){
             res.send('Erreur : ', err);
         }
         res.json({ message: `${assignment.nom} enregistré !`})
-    })
+    })*/
+    try {
+        const etudiants = req.body.etudiants;
+
+        const assignments = [];
+        etudiants.forEach((idEtudiant) => {
+            const assignment = new Assignment({
+                idMatiere: req.body.idMatiere,
+                idEtudiant: idEtudiant,
+                nom: req.body.nom,
+                instruction: req.body.instruction,
+                dateDeRendu: req.body.dateDeRendu,
+                rendu: false, // Par défaut
+                note: 0, // Par défaut
+                remarques: ""
+            });
+            assignments.push(assignment);
+        });
+
+        await Assignment.insertMany(assignments);
+
+        res.status(201).send("Assignments ajoutés avec succès");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Une erreur s'est produite lors de l'ajout des assignments");
+    }
 }
 
 // Update d'un assignment (PUT)
