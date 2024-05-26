@@ -85,7 +85,7 @@ async function postAssignment(req, res){
 
         await Assignment.insertMany(assignments);
 
-        res.status(201).send("Assignments ajoutés avec succès");
+        res.status(201).json({ message: "Assignments ajoutés avec succès" });
     } catch (error) {
         console.error(error);
         res.status(500).send("Une erreur s'est produite lors de l'ajout des assignments");
