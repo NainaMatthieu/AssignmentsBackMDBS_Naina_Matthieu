@@ -99,7 +99,7 @@ app.route(prefix + '/matieres')
   .get(matiere.getMatieres);
 
 app.route(prefix + '/matieres/:id/etudiants')
-  .get(utilisateur.getMatiereEtudiant)
+  .get(utilisateur.getEtudiantMatiere)
 
 app.route(prefix + '/eleves')
   .get(utilisateur.getListEtudiant);

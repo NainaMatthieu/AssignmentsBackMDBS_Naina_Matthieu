@@ -71,7 +71,7 @@ async function getMatiereEtudiant(req, res) {
     }
 }
 
-async function getMatiereEtudiant(req, res) {
+async function getEtudiantMatiere(req, res) {
     try {
 
         let idMatiere = req.params.id;
@@ -249,5 +249,5 @@ function getListEtudiant(req, res) {
 module.exports = {  getUtilisateurs, getUtilisateur, loginUser, getMatiereEtudiant,
                     getAssignmentByIdEtudiant_IdMatiere, getAssignmentByIdEtudiant, 
                     registerUser,rendreAssignmentByEtudiant,getAssignmentRenduNonNote,
-                    getListEtudiant,getMatiereEtudiant
+                    getListEtudiant,getEtudiantMatiere
                 };
