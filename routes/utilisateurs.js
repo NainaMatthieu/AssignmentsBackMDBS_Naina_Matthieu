@@ -75,7 +75,7 @@ async function getEtudiantMatiere(req, res) {
     try {
 
         let idMatiere = req.params.id;
-        // console.log(idEtudiant);
+        // console.log(idMatiere);
         matiere_etudiants = await EtudiantMatiere.find({ idMatiere })
         console.log(matiere_etudiants)
         const idEtudiants = matiere_etudiants.map(relation => relation.idEtudiant);
@@ -202,7 +202,7 @@ async function rendreAssignmentByEtudiant(req, res) {
    try {
     const result = await Assignment.updateMany(
       { _id: { $in: listIdAssignment.map(id => mongoose.Types.ObjectId(id))} },
-      { $set: { rendu: false } }
+      { $set: { rendu: true } }
     );
     res.status(200).send(result);
   } catch (error) {
