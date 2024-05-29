@@ -43,4 +43,11 @@ function getMatieres(req, res) {
     })
 }
 
-module.exports = {getMatiereById, createMatiere, getMatieres};
+function getMatieresByProf(req,res){
+    Matiere.find({professeur_id:req.params.id}, (err, matiere) => {
+        if (err) { res.send(err) }
+        else res.json(matiere);
+    })
+}
+
+module.exports = {getMatiereById, createMatiere, getMatieres, getMatieresByProf};
