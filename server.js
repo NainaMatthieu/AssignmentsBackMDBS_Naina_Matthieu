@@ -83,8 +83,8 @@ app.route(prefix + '/matiere/:id')
 app.route(prefix + '/matiere')
   .post(matiere.createMatiere);
 
-app.route(prefix + '/matiere/:id/prof')
-  .post(matiere.getMatieresByProf);
+app.route(prefix + '/matieres/:id/prof')
+  .get(matiere.getMatieresByProf);
 
 app.route(prefix + '/assignments')
   .post(assignment.postAssignment)
