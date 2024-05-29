@@ -55,7 +55,7 @@ function noterAssignments(req,res){
             );
         });
     
-        res.status(200).send("Modifications enregistrées avec succès.");
+        res.status(200).send({ message: "Assignment(s) noté(s) avec succès" });
     } catch (error) {
         res.status(500).send(error.message);
     }
