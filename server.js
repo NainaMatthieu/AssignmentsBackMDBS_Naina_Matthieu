@@ -98,6 +98,9 @@ app.route(prefix + '/user/rendre')
 app.route(prefix + '/assignments/tonote')
   .get(utilisateur.getAssignmentRenduNonNote)
 
+app.route(prefix + '/assignments/noter')
+  .patch(assignment.noterAssignments)
+
 app.route(prefix + '/assignments/:id/matiere')
   .get(assignment.getAssignmentByMatiere)
 

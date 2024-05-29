@@ -32,6 +32,36 @@ function getAssignments(req, res){
     );
 }
 
+function noterAssignments(req,res){
+    try {
+        const assignments = req.body.assignments;
+    
+        assignments.forEach((idAssignment) => {
+            Assignment.findOneAndUpdate(
+                { _id: idAssignment },
+                { note: req.body.note, remarques: req.body.remarques },
+                { new: true },
+                (error, assignment) => {
+                    if (error) {
+                        res.status(500).send(error);
+                    } else {
+                        if (assignment) {
+                            console.log("Assignment mis à jour :", assignment);
+                        } else {
+                            console.log("Assignment non trouvé.");
+                        }
+                    }
+                }
+            );
+        });
+    
+        res.status(200).send("Modifications enregistrées avec succès.");
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+    
+}
+
 // Récupérer un assignment par son id (GET)
 function getAssignment(req, res){
     let assignmentId = req.params.id;
@@ -131,4 +161,4 @@ function deleteAssignment(req, res) {
 
 
 
-module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment,getAssignmentByMatiere };
+module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment,getAssignmentByMatiere, noterAssignments };
