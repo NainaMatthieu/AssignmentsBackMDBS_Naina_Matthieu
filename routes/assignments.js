@@ -1,5 +1,5 @@
 let Assignment = require('../model/assignment');
-
+const mongoose = require('mongoose');
 // Récupérer tous les assignments (GET)
 /*
 function getAssignments(req, res){
@@ -107,17 +107,14 @@ async function postAssignment(req, res){
 function updateAssignment(req, res) {
     console.log("UPDATE recu assignment : ");
     console.log(req.body);
-    Assignment.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, assignment) => {
+    Assignment.findByIdAndUpdate(mongoose.Types.ObjectId(req.body._id),req.body, {new: true}, (err, assignment) => {
         if (err) {
             console.log(err);
             res.send(err)
         } else {
-          res.json({message: 'updated'})
+            res.json({message: 'updated',assignment:assignment})
         }
-
-      // console.log('updated ', assignment)
     });
-
 }
 
 // suppression d'un assignment (DELETE)
