@@ -89,7 +89,7 @@ app.route(prefix + '/matieres/:id/prof')
 app.route(prefix + '/assignments')
   .post(assignment.postAssignment)
   .put(assignment.updateAssignment)
-//.get(assignment.getAssignments);
+  .get(assignment.getAssignments);
 
 app.route(prefix + '/user/rendre')
   .post(utilisateur.rendreAssignmentByEtudiant)
