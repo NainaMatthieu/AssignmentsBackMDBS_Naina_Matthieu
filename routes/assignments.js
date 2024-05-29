@@ -47,6 +47,17 @@ function getAssignment(req, res){
     //     res.json(assignment);
     // })
 }
+
+// Récupérer un assignment par matière
+function getAssignmentByMatiere(req, res){
+    let matiere = req.params.id;
+    console.log("--------------------")
+    Assignment.find({idMatiere:matiere}, (err, assignment) =>{
+        if(err){res.send(err)}
+        else res.json(assignment);
+    })
+}
+
 // Ajout d'un assignment (POST)
 async function postAssignment(req, res){
     /*let assignment = new Assignment();
@@ -123,4 +134,4 @@ function deleteAssignment(req, res) {
 
 
 
-module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment };
+module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment,getAssignmentByMatiere };
